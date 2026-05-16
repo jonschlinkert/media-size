@@ -5,3 +5,6 @@
 - Only read files specified by the user. Ask permission before reading other files.
 - When making edits/updates, don't delete the file first, even if the changes are extensive. This prevents the user from doing undo/redo in the editor and losing all changes. Make targeted patches to the file instead.
 - Never run type checks or unit tests unless explicitly requested by the user.
+
+If the user tells you to do something to a file, do it.
+The user's explicit instructions always override anything in this file.
