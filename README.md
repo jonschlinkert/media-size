@@ -1,13 +1,12 @@
-# media-size [![NPM version](https://img.shields.io/npm/v/media-size.svg?style=flat)](https://www.npmjs.com/package/media-size) [![NPM downloads](https://img.shields.io/npm/dm/media-size.svg?style=flat)](https://npmjs.org/package/media-size) [![Build Status](https://img.shields.io/travis/jonschlinkert/media-size.svg?style=flat)](https://travis-ci.org/jonschlinkert/media-size)
+# @jonschlinkert/media-size [![NPM version](https://img.shields.io/npm/v/@jonschlinkert/media-size.svg?style=flat)](https://www.npmjs.com/package/@jonschlinkert/media-size) [![NPM downloads](https://img.shields.io/npm/dm/@jonschlinkert/media-size.svg?style=flat)](https://npmjs.org/package/@jonschlinkert/media-size) [![Build Status](https://img.shields.io/travis/jonschlinkert/jonschlinkert.svg?style=flat)](https://travis-ci.org/jonschlinkert/jonschlinkert)
 
 > Get the width and height of a video or image.
 
 ## Install
-
 Install with [npm](https://www.npmjs.com/):
 
 ```sh
-$ npm install --save media-size
+$ npm install --save @jonschlinkert/media-size
 ```
 
 Get the width and height of image and video files.
@@ -28,41 +27,18 @@ Image sizing works without extra system dependencies.
 
 Video sizing uses `video-size`, which shells out to `ffprobe`, so FFmpeg needs to be installed and `ffprobe` needs to be available on your `PATH`.
 
+---
+
 ## Usage
 
 ```ts
-import { mediaSize } from 'media-size';
-
-const dimensions = await mediaSize('image.png');
-
-console.log(dimensions);
-// { width: 1200, height: 800, orientation: undefined }
-```
-
-## Image Size
-
-```ts
-import { mediaSize } from 'media-size';
+import { mediaSize } from '@jonschlinkert/media-size';
 
 const dimensions = await mediaSize('photo.jpg');
-
 console.log(dimensions);
 // { width: 4032, height: 3024, orientation: undefined }
-```
-
-### Supported Image Types
-
-`media-size` supports the following image extensions:
-
-`avif`, `avifs`, `bmp`, `cur`, `dds`, `dib`, `gif`, `heic`, `heics`, `heif`, `heifs`, `icb`, `icns`, `ico`, `j2c`, `j2k`, `jfi`, `jfif`, `jif`, `jp2`, `jpc`, `jpe`, `jpeg`, `jpf`, `jpg`, `jpm`, `jxl`, `ktx`, `ktx2`, `mj2`, `pam`, `pbm`, `pfm`, `pgm`, `png`, `pnm`, `ppm`, `psd`, `svg`, `svgz`, `tga`, `tif`, `tiff`, `vda`, `vst`, and `webp`.
-
-## Video Size
-
-```ts
-import { mediaSize } from 'media-size';
 
 const dimensions = await mediaSize('video.mp4');
-
 console.log(dimensions);
 // { width: 1280, height: 720, orientation: 'landscape' }
 ```
@@ -86,9 +62,10 @@ console.log(dimensions);
 // null
 ```
 
-## Result
+### Result
 
-`mediaSize` returns an object with `width`, `height`, and `orientation` for supported files:
+`mediaSize` returns an object with `width`,
+`height`, and `orientation` for supported files:
 
 ```ts
 interface MediaDimensions {
@@ -100,53 +77,6 @@ interface MediaDimensions {
 
 Image orientation is passed through from `image-size` when available. Video orientation is described below.
 
-## Video Size Info
-
-### videoSize(filepath)
-
-The underlying video sizing library returns a promise for the dimensions of the first video stream in `filepath`.
-
-```ts
-const dimensions = await videoSize('video.mp4');
-```
-
-### videoSize.sync(filepath)
-
-The underlying video sizing library can return the dimensions of the first video stream in `filepath` synchronously.
-
-```ts
-const dimensions = videoSize.sync('video.mp4');
-```
-
-### isVideoFile(filepath)
-
-The underlying video sizing library returns `true` when `filepath` has a supported video extension.
-
-```ts
-import { isVideoFile } from 'video-size';
-
-isVideoFile('clip.mp4');
-// true
-
-isVideoFile('notes.txt');
-// false
-```
-
-### VIDEO_EXTS
-
-A `Set` of supported video extensions, including `mp4`, `mov`, `m4v`, `mkv`, `mpeg`, `mpg`, `webm`, `avi`, `flv`, `3gp`, `3g2`, `ts`, `m2t`, `m2ts`, and `mts`.
-
-```ts
-import { VIDEO_EXTS } from 'video-size';
-
-VIDEO_EXTS.has('mp4');
-// true
-```
-
-## Result
-
-Both async and sync APIs return a `VideoDimensions` object:
-
 ```ts
 interface VideoDimensions {
   width: number;
@@ -155,25 +85,93 @@ interface VideoDimensions {
 }
 ```
 
-`width` and `height` are the encoded dimensions reported by `ffprobe`.
+Image orientation is passed through from `video-size` when available. Video orientation is described below.
 
-`orientation` is based on the display dimensions. Rotation metadata is respected, so a rotated video can be reported as `portrait` even when the encoded width is greater than the encoded height. Square videos return `null`.
+- `width` and `height` are the encoded dimensions reported by `ffprobe`.
+- `orientation` is based on the display dimensions. Rotation metadata is respected, so a rotated video can be reported as `portrait` even when the encoded width is greater than the encoded height. Square videos return `null`.
+
+### Supported Image Types
+
+Supports the following image extensions:
+
+- `avif`
+- `avifs`
+- `bmp`
+- `cur`
+- `dds`
+- `dib`
+- `gif`
+- `heic`
+- `heics`
+- `heif`
+- `heifs`
+- `icb`
+- `icns`
+- `ico`
+- `j2c`
+- `j2k`
+- `jfi`
+- `jfif`
+- `jif`
+- `jp2`
+- `jpc`
+- `jpe`
+- `jpeg`
+- `jpf`
+- `jpg`
+- `jpm`
+- `jxl`
+- `ktx`
+- `ktx2`
+- `mj2`
+- `pam`
+- `pbm`
+- `pfm`
+- `pgm`
+- `png`
+- `pnm`
+- `ppm`
+- `psd`
+- `svg`
+- `svgz`
+- `tga`
+- `tif`
+- `tiff`
+- `vda`
+- `vst`
+- `webp`
+
+### Supported Video Types
+
+Supports the following video types / file extensions:
+
+- `3g2`
+- `3gp`
+- `avi`
+- `flv`
+- `m2t`
+- `m2ts`
+- `m4v`
+- `mkv`
+- `mov`
+- `mp4`
+- `mpeg`
+- `mpg`
+- `mts`
+- `ts`
+- `webm`
 
 ## About
-
 ### Related projects
-
 [video-size](https://www.npmjs.com/package/video-size): Get the width and height of a video. | [homepage](https://github.com/jonschlinkert/video-size "Get the width and height of a video.")
 
 ### Contributing
-
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
 
 ### Building docs
+_(This document was generated by [verb-generate-readme][] (a [verb][] generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
 
-_(This document was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme) (a [verb](https://github.com/verbose/verb) generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
-
-To generate the readme and API documentation with [verb](https://github.com/verbose/verb):
+To generate the readme and API documentation with [verb][]:
 
 ```sh
 $ npm install -g verb verb-generate-readme && verb
@@ -188,17 +186,19 @@ $ npm install -d && npm test
 ```
 
 ### Author
-
 **Jon Schlinkert**
 
-* [github/jonschlinkert](https://github.com/jonschlinkert)
-* [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
++ [github/jonschlinkert](https://github.com/jonschlinkert)
++ [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
 
 ### License
-
 Copyright © 2026, [Jon Schlinkert](https://github.com/jonschlinkert).
 MIT
 
 ***
 
 _This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.1.31, on May 16, 2026._
+
+[verb]: https://github.com/verbose/verb
+
+[verb-generate-readme]: https://github.com/verbose/verb-generate-readme

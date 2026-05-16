@@ -6,6 +6,8 @@ import { imageSize } from 'image-size';
 import { isVideoFile, videoRegex, videoSize } from 'video-size';
 import { createExtRegex } from '~/regex-trie';
 
+export { isVideoFile, videoRegex, videoSize, imageSize };
+
 const gunzipAsync = promisify(gunzip);
 
 // - jpg type expands to jpg, jpeg, jpe, jfif, jif, jfi
@@ -64,6 +66,7 @@ export const IMAGE_EXTS = new Set([
 ]);
 
 export const imageRegex = createExtRegex([...IMAGE_EXTS]);
+export const isImageFile = (filepath: string) => imageRegex.test(filepath);
 
 export async function mediaSize(filepath: string) {
   if (isVideoFile(filepath)) {
@@ -74,9 +77,9 @@ export async function mediaSize(filepath: string) {
       height,
       orientation
     };
-  };
+  }
 
-  if (imageRegex.test(filepath)) {
+  if (isImageFile(filepath)) {
     const input = await readFile(filepath);
     const { width, height, orientation } = extname(filepath).toLowerCase() === '.svgz'
       ? imageSize(await gunzipAsync(input))

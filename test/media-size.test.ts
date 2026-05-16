@@ -41,7 +41,7 @@ async function makeNonVideo(filename: string): Promise<string> {
 }
 
 describe('media-size', () => {
-  describe('images', () => {
+  describe('images async', () => {
     for (const image of supportedImageFixtures) {
       describe(path.extname(image.filename), () => {
         it(`reads a ${image.width}x${image.height} file`, async () => {
@@ -244,22 +244,22 @@ describe('media-size', () => {
   describe('unsupported extensions', () => {
     it('returns null for .txt files', async () => {
       const filepath = await makeNonVideo('fake.txt');
-      assert.equal(await mediaSize(filepath), null, `should return null for .txt files`);
+      assert.equal(await mediaSize(filepath), null, 'should return null for .txt files');
     });
 
     it('returns null for .json files', async () => {
       const filepath = await makeNonVideo('fake.json');
-      assert.equal(await mediaSize(filepath), null, `should return null for .json files`);
+      assert.equal(await mediaSize(filepath), null, 'should return null for .json files');
     });
 
     it('returns null for .bin files', async () => {
       const filepath = await makeNonVideo('fake.bin');
-      assert.equal(await mediaSize(filepath), null, `should return null for .bin files`);
+      assert.equal(await mediaSize(filepath), null, 'should return null for .bin files');
     });
 
     it('returns null for .xyz files', async () => {
       const filepath = await makeNonVideo('fake.xyz');
-      assert.equal(await mediaSize(filepath), null, `should return null for .xyz files`);
+      assert.equal(await mediaSize(filepath), null, 'should return null for .xyz files');
     });
-  })
+  });
 });
