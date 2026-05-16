@@ -19,8 +19,6 @@ coverage
 
 # package managers
 node_modules
-*-lock.*
-*.lock
 
 # misc
 _gh_pages
