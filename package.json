@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "image-size": "^2.0.2",
+    "image-size": "^2.0.3",
     "video-size": "^2.0.2"
   },
   "devDependencies": {
